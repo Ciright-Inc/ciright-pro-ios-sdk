@@ -61,10 +61,10 @@ final class CarrierAuthManager {
 
         let service = AuthorizationService()
 
-        let request = AuthorizationRequest.Builder()
-            .setScope(value: "openid ip:phone_verify")
-            .addQueryParam(key: "login_hint", value: phone)
-            .build()
+        let builder = AuthorizationRequest.Builder()
+        builder.setScope(value: "openid ip:phone_verify")
+        builder.addQueryParam(key: "login_hint", value: phone)
+        let request = builder.build()
 
         service.callbackSuccess = { response in
             guard let code = response.getCode(), !code.isEmpty else {

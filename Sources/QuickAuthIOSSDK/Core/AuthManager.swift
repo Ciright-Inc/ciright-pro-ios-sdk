@@ -100,9 +100,13 @@ final class AuthManager {
             case .failure(let error):
                 completion(.failure(error))
             case .success(let response):
+                guard let accessToken = response.accessToken else {
+                    completion(.failure(.backendError("No access token returned")))
+                    return
+                }
                 let user = response.user.map { QAUser(from: $0) }
                 let session = QASession(
-                    accessToken: response.accessToken,
+                    accessToken: accessToken,
                     refreshToken: response.refreshToken,
                     user: user
                 )
@@ -149,9 +153,13 @@ final class AuthManager {
                 self?.tokenStorage.clear()
                 completion(.failure(error))
             case .success(let response):
+                guard let accessToken = response.accessToken else {
+                    completion(.failure(.backendError("No access token returned")))
+                    return
+                }
                 let user = response.user.map { QAUser(from: $0) }
                 let session = QASession(
-                    accessToken: response.accessToken,
+                    accessToken: accessToken,
                     refreshToken: response.refreshToken,
                     user: user
                 )
