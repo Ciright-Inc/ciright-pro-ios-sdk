@@ -1,5 +1,5 @@
 import Foundation
-import IPificationSDK
+@_implementationOnly import IPificationSDK
 
 /// Wraps the native carrier verification SDK for internal use only.
 /// This class is never exposed to SDK consumers.
